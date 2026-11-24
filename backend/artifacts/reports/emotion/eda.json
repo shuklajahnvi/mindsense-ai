@@ -1,0 +1,253 @@
+{
+  "dataset": "GoEmotions (simplified)",
+  "n_labels": 28,
+  "labels": [
+    "admiration",
+    "amusement",
+    "anger",
+    "annoyance",
+    "approval",
+    "caring",
+    "confusion",
+    "curiosity",
+    "desire",
+    "disappointment",
+    "disapproval",
+    "disgust",
+    "embarrassment",
+    "excitement",
+    "fear",
+    "gratitude",
+    "grief",
+    "joy",
+    "love",
+    "nervousness",
+    "optimism",
+    "pride",
+    "realization",
+    "relief",
+    "remorse",
+    "sadness",
+    "surprise",
+    "neutral"
+  ],
+  "splits": {
+    "train": {
+      "n": 43410,
+      "label_counts": {
+        "admiration": 4130,
+        "amusement": 2328,
+        "anger": 1567,
+        "annoyance": 2470,
+        "approval": 2939,
+        "caring": 1087,
+        "confusion": 1368,
+        "curiosity": 2191,
+        "desire": 641,
+        "disappointment": 1269,
+        "disapproval": 2022,
+        "disgust": 793,
+        "embarrassment": 303,
+        "excitement": 853,
+        "fear": 596,
+        "gratitude": 2662,
+        "grief": 77,
+        "joy": 1452,
+        "love": 2086,
+        "nervousness": 164,
+        "optimism": 1581,
+        "pride": 111,
+        "realization": 1110,
+        "relief": 153,
+        "remorse": 545,
+        "sadness": 1326,
+        "surprise": 1060,
+        "neutral": 14219
+      },
+      "labels_per_example": {
+        "1": 36308,
+        "2": 6541,
+        "3": 532,
+        "4": 28,
+        "5": 1
+      },
+      "mean_labels_per_example": 1.1772172451019287,
+      "length": {
+        "mean_words": 12.842202257544345,
+        "median_words": 12.0,
+        "p95_words": 24.0,
+        "max_words": 33
+      }
+    },
+    "validation": {
+      "n": 5426,
+      "label_counts": {
+        "admiration": 488,
+        "amusement": 303,
+        "anger": 195,
+        "annoyance": 303,
+        "approval": 397,
+        "caring": 153,
+        "confusion": 152,
+        "curiosity": 248,
+        "desire": 77,
+        "disappointment": 163,
+        "disapproval": 292,
+        "disgust": 97,
+        "embarrassment": 35,
+        "excitement": 96,
+        "fear": 90,
+        "gratitude": 358,
+        "grief": 13,
+        "joy": 172,
+        "love": 252,
+        "nervousness": 21,
+        "optimism": 209,
+        "pride": 15,
+        "realization": 127,
+        "relief": 18,
+        "remorse": 68,
+        "sadness": 143,
+        "surprise": 129,
+        "neutral": 1766
+      },
+      "labels_per_example": {
+        "1": 4548,
+        "2": 809,
+        "3": 62,
+        "4": 7
+      },
+      "mean_labels_per_example": 1.1758201122283936,
+      "length": {
+        "mean_words": 12.792112053077775,
+        "median_words": 12.0,
+        "p95_words": 24.75,
+        "max_words": 30
+      }
+    },
+    "test": {
+      "n": 5427,
+      "label_counts": {
+        "admiration": 504,
+        "amusement": 264,
+        "anger": 198,
+        "annoyance": 320,
+        "approval": 351,
+        "caring": 135,
+        "confusion": 153,
+        "curiosity": 284,
+        "desire": 83,
+        "disappointment": 151,
+        "disapproval": 267,
+        "disgust": 123,
+        "embarrassment": 37,
+        "excitement": 103,
+        "fear": 78,
+        "gratitude": 352,
+        "grief": 6,
+        "joy": 161,
+        "love": 238,
+        "nervousness": 23,
+        "optimism": 186,
+        "pride": 16,
+        "realization": 145,
+        "relief": 11,
+        "remorse": 56,
+        "sadness": 156,
+        "surprise": 141,
+        "neutral": 1787
+      },
+      "labels_per_example": {
+        "1": 4590,
+        "2": 774,
+        "3": 61,
+        "4": 2
+      },
+      "mean_labels_per_example": 1.1662060022354126,
+      "length": {
+        "mean_words": 12.728026533996683,
+        "median_words": 12.0,
+        "p95_words": 24.0,
+        "max_words": 32
+      }
+    }
+  },
+  "top_cooccurring_pairs_train": [
+    {
+      "a": "admiration",
+      "b": "gratitude",
+      "count": 279
+    },
+    {
+      "a": "anger",
+      "b": "annoyance",
+      "count": 269
+    },
+    {
+      "a": "admiration",
+      "b": "approval",
+      "count": 246
+    },
+    {
+      "a": "confusion",
+      "b": "curiosity",
+      "count": 212
+    },
+    {
+      "a": "approval",
+      "b": "neutral",
+      "count": 202
+    },
+    {
+      "a": "admiration",
+      "b": "love",
+      "count": 192
+    },
+    {
+      "a": "annoyance",
+      "b": "disapproval",
+      "count": 178
+    },
+    {
+      "a": "disappointment",
+      "b": "sadness",
+      "count": 133
+    },
+    {
+      "a": "annoyance",
+      "b": "neutral",
+      "count": 132
+    },
+    {
+      "a": "admiration",
+      "b": "joy",
+      "count": 126
+    },
+    {
+      "a": "curiosity",
+      "b": "neutral",
+      "count": 118
+    },
+    {
+      "a": "annoyance",
+      "b": "disappointment",
+      "count": 110
+    },
+    {
+      "a": "disapproval",
+      "b": "neutral",
+      "count": 109
+    },
+    {
+      "a": "admiration",
+      "b": "optimism",
+      "count": 106
+    },
+    {
+      "a": "approval",
+      "b": "optimism",
+      "count": 100
+    }
+  ],
+  "imbalance_ratio_max_min": 184.66233766233765
+}

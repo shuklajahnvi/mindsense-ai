@@ -1,0 +1,22 @@
+# Install torch first (CPU build):  pip install torch --index-url https://download.pytorch.org/whl/cpu
+# (or the CUDA build from https://pytorch.org if you have an NVIDIA GPU)
+torch>=2.3
+transformers>=4.44
+datasets>=2.20
+accelerate
+scikit-learn>=1.4
+pandas
+numpy
+sentence-transformers>=3.0
+chromadb>=0.5
+lime==0.2.0.1
+matplotlib
+fastapi
+uvicorn[standard]
+sqlalchemy>=2.0
+pydantic>=2.6
+pydantic-settings
+python-dotenv
+httpx
+pyyaml
+pytest

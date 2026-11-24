@@ -1,0 +1,87 @@
+{
+  "name": "stress_baseline_svm",
+  "task": "stress",
+  "kind": "baseline",
+  "algorithm": "TF-IDF (1-2 grams) + Linear SVM (sigmoid-calibrated)",
+  "fine_tuned": false,
+  "labels": [
+    "not_stress",
+    "stress"
+  ],
+  "threshold": 0.5,
+  "hyperparameters": {
+    "C": 0.1
+  },
+  "training": {
+    "dataset": "Dreaddit",
+    "n_train": 2414,
+    "n_val": 403,
+    "n_test": 715,
+    "leakage_checks": {
+      "train_test_shared_post_ids": 0,
+      "train_test_duplicate_texts": 3,
+      "train_rows_removed": 21,
+      "posts_with_multiple_segments_in_train": 376,
+      "train_val_shared_post_ids": 0
+    }
+  },
+  "metrics": {
+    "validation": {
+      "accuracy": 0.7965260545905707,
+      "precision": 0.782608695652174,
+      "recall": 0.8490566037735849,
+      "f1": 0.8144796380090498,
+      "macro_f1": 0.7946024563671623,
+      "roc_auc": 0.8614047219203793,
+      "threshold": 0.5,
+      "confusion_matrix": {
+        "labels": [
+          "not_stress",
+          "stress"
+        ],
+        "matrix": [
+          [
+            141,
+            50
+          ],
+          [
+            32,
+            180
+          ]
+        ]
+      },
+      "n_samples": 403
+    },
+    "test": {
+      "accuracy": 0.7356643356643356,
+      "precision": 0.7132701421800948,
+      "recall": 0.8157181571815718,
+      "f1": 0.7610619469026548,
+      "macro_f1": 0.7326436495076654,
+      "roc_auc": 0.8211303789338471,
+      "threshold": 0.5,
+      "confusion_matrix": {
+        "labels": [
+          "not_stress",
+          "stress"
+        ],
+        "matrix": [
+          [
+            225,
+            121
+          ],
+          [
+            68,
+            301
+          ]
+        ]
+      },
+      "n_samples": 715
+    }
+  },
+  "trained_at": "2026-11-24T15:43:16.094870+00:00",
+  "environment": {
+    "python": "3.12.5",
+    "platform": "Windows-11-10.0.26300-SP0"
+  }
+}

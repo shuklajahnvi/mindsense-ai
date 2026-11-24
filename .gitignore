@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+backend/.venv/
+.pytest_cache/
+
+# Data, caches, trained weights, local logs
+backend/data/
+backend/artifacts/logs/
+backend/artifacts/models/*/model.safetensors
+backend/artifacts/models/*/*.bin
+backend/artifacts/models/*/model.joblib
+
+# Secrets
+.env
+backend/.env
+
+# Node
+frontend/node_modules/
+frontend/dist/
+*.tsbuildinfo

@@ -1,0 +1,132 @@
+{
+  "dataset": "Dreaddit (labelled subset)",
+  "leakage_checks": {
+    "train_test_shared_post_ids": 0,
+    "train_test_duplicate_texts": 3,
+    "train_rows_removed": 21,
+    "posts_with_multiple_segments_in_train": 376,
+    "train_val_shared_post_ids": 0
+  },
+  "splits": {
+    "train": {
+      "n": 2414,
+      "n_posts": 1991,
+      "label_counts": {
+        "not_stress": 1145,
+        "stress": 1269
+      },
+      "stress_rate": 0.5256835128417564,
+      "subreddits": {
+        "ptsd": 508,
+        "relationships": 454,
+        "anxiety": 435,
+        "domesticviolence": 274,
+        "assistance": 238,
+        "survivorsofabuse": 210,
+        "homeless": 139,
+        "almosthomeless": 70,
+        "stress": 55,
+        "food_pantry": 31
+      },
+      "stress_rate_by_subreddit": {
+        "almosthomeless": 0.5714285714285714,
+        "anxiety": 0.6551724137931034,
+        "assistance": 0.35294117647058826,
+        "domesticviolence": 0.6313868613138686,
+        "food_pantry": 0.3548387096774194,
+        "homeless": 0.37410071942446044,
+        "ptsd": 0.5807086614173228,
+        "relationships": 0.43832599118942733,
+        "stress": 0.5818181818181818,
+        "survivorsofabuse": 0.4666666666666667
+      },
+      "mean_annotator_confidence": 0.8092949855376967,
+      "length": {
+        "mean_words": 85.3202154101077,
+        "median_words": 80.0,
+        "p95_words": 142.0,
+        "max_words": 310
+      }
+    },
+    "validation": {
+      "n": 403,
+      "n_posts": 338,
+      "label_counts": {
+        "not_stress": 191,
+        "stress": 212
+      },
+      "stress_rate": 0.5260545905707196,
+      "subreddits": {
+        "relationships": 98,
+        "ptsd": 71,
+        "anxiety": 67,
+        "assistance": 51,
+        "domesticviolence": 41,
+        "homeless": 29,
+        "survivorsofabuse": 26,
+        "almosthomeless": 8,
+        "food_pantry": 6,
+        "stress": 6
+      },
+      "stress_rate_by_subreddit": {
+        "almosthomeless": 0.625,
+        "anxiety": 0.6716417910447762,
+        "assistance": 0.4117647058823529,
+        "domesticviolence": 0.7073170731707317,
+        "food_pantry": 0.5,
+        "homeless": 0.3793103448275862,
+        "ptsd": 0.49295774647887325,
+        "relationships": 0.4897959183673469,
+        "stress": 0.5,
+        "survivorsofabuse": 0.46153846153846156
+      },
+      "mean_annotator_confidence": 0.8042656267866004,
+      "length": {
+        "mean_words": 88.05955334987593,
+        "median_words": 81.0,
+        "p95_words": 156.79999999999995,
+        "max_words": 248
+      }
+    },
+    "test": {
+      "n": 715,
+      "n_posts": 586,
+      "label_counts": {
+        "not_stress": 346,
+        "stress": 369
+      },
+      "stress_rate": 0.5160839160839161,
+      "subreddits": {
+        "anxiety": 147,
+        "relationships": 142,
+        "ptsd": 127,
+        "domesticviolence": 72,
+        "survivorsofabuse": 70,
+        "assistance": 66,
+        "homeless": 52,
+        "almosthomeless": 19,
+        "stress": 14,
+        "food_pantry": 6
+      },
+      "stress_rate_by_subreddit": {
+        "almosthomeless": 0.631578947368421,
+        "anxiety": 0.5782312925170068,
+        "assistance": 0.3181818181818182,
+        "domesticviolence": 0.6527777777777778,
+        "food_pantry": 0.5,
+        "homeless": 0.34615384615384615,
+        "ptsd": 0.6456692913385826,
+        "relationships": 0.4225352112676056,
+        "stress": 0.7142857142857143,
+        "survivorsofabuse": 0.44285714285714284
+      },
+      "mean_annotator_confidence": 0.7178954378954377,
+      "length": {
+        "mean_words": 85.45594405594406,
+        "median_words": 81.0,
+        "p95_words": 144.29999999999995,
+        "max_words": 268
+      }
+    }
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "name": "stress_transformer",
+  "task": "stress",
+  "kind": "transformer",
+  "algorithm": "Fine-tuned distilroberta-base (softmax + cross-entropy, binary)",
+  "fine_tuned": true,
+  "base_checkpoint": "distilroberta-base",
+  "labels": [
+    "not_stress",
+    "stress"
+  ],
+  "threshold": 0.5,
+  "max_len": 192,
+  "fine_tuning_scope": "partial fine-tuning: top 4 of 6 transformer layers + classification head trained; embeddings frozen; bottom 2 layers frozen",
+  "trainable_parameters": 28943618,
+  "total_parameters": 82119938,
+  "hyperparameters": {
+    "model": "distilroberta-base",
+    "max_len": 192,
+    "batch_size": 16,
+    "lr": 3e-05,
+    "epochs": 3,
+    "grad_accum": 1,
+    "patience": 2,
+    "seed": 42,
+    "freeze_embeddings": true,
+    "freeze_layers": 2
+  },
+  "training": {
+    "dataset": "Dreaddit",
+    "n_train": 2414,
+    "n_val": 403,
+    "n_test": 715,
+    "train_limit": null,
+    "eval_limit": null,
+    "is_subset": false,
+    "device": "cpu",
+    "optimizer_steps": 453,
+    "train_minutes": 54.4,
+    "history": [
+      {
+        "epoch": 1,
+        "batch": 151,
+        "train_loss": 0.5167300465288541,
+        "val_score": 0.8177570093457944,
+        "elapsed_min": 18.04200236797333
+      },
+      {
+        "epoch": 2,
+        "batch": 151,
+        "train_loss": 0.34177073333042346,
+        "val_score": 0.8387096774193549,
+        "elapsed_min": 36.172331154346466
+      },
+      {
+        "epoch": 3,
+        "batch": 151,
+        "train_loss": 0.28053630987145256,
+        "val_score": 0.8246013667425968,
+        "elapsed_min": 54.43895091613134
+      }
+    ],
+    "leakage_checks": {
+      "train_test_shared_post_ids": 0,
+      "train_test_duplicate_texts": 3,
+      "train_rows_removed": 21,
+      "posts_with_multiple_segments_in_train": 376,
+      "train_val_shared_post_ids": 0
+    }
+  },
+  "metrics": {
+    "validation": {
+      "accuracy": 0.826302729528536,
+      "precision": 0.8198198198198198,
+      "recall": 0.8584905660377359,
+      "f1": 0.8387096774193549,
+      "macro_f1": 0.825268817204301,
+      "roc_auc": 0.91301985577398,
+      "threshold": 0.5,
+      "confusion_matrix": {
+        "labels": [
+          "not_stress",
+          "stress"
+        ],
+        "matrix": [
+          [
+            151,
+            40
+          ],
+          [
+            30,
+            182
+          ]
+        ]
+      },
+      "n_samples": 403
+    },
+    "test": {
+      "accuracy": 0.806993006993007,
+      "precision": 0.7969151670951157,
+      "recall": 0.8401084010840109,
+      "f1": 0.8179419525065963,
+      "macro_f1": 0.8062924048247266,
+      "roc_auc": 0.8860143803750176,
+      "threshold": 0.5,
+      "confusion_matrix": {
+        "labels": [
+          "not_stress",
+          "stress"
+        ],
+        "matrix": [
+          [
+            267,
+            79
+          ],
+          [
+            59,
+            310
+          ]
+        ]
+      },
+      "n_samples": 715
+    }
+  },
+  "trained_at": "2026-11-24T17:07:04.938114+00:00",
+  "environment": {
+    "python": "3.12.5",
+    "platform": "Windows-11-10.0.26300-SP0"
+  }
+}
