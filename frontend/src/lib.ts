@@ -11,15 +11,19 @@ export const EMOTION_GROUP: Record<string, "positive" | "negative" | "ambiguous"
   neutral: "neutral",
 };
 
-// Categorical slots 1-3 of the validated reference palette (blue, orange, aqua) + neutral gray.
-export const GROUP_COLOR = { positive: "#2a78d6", negative: "#eb6834", ambiguous: "#1baf7a", neutral: "#a8a7a0" } as const;
-export const SERIES = ["#2a78d6", "#eb6834", "#1baf7a"] as const;
-export const CHART = { grid: "#e1e0d9", axis: "#898781", ink: "#52514e" } as const;
+// Earthy categorical palette (pine, terracotta, dusk blue), validated with the dataviz palette checker
+// on the cream surface #fffdf8: lightness band, chroma floor, CVD separation (>= 8.7) and contrast all pass.
+// Neutral is a warm stone grey.
+export const GROUP_COLOR = { positive: "#238c6c", negative: "#c65f2f", ambiguous: "#4a74b8", neutral: "#b5ab98" } as const;
+export const SERIES = ["#238c6c", "#c65f2f", "#4a74b8"] as const;
+export const CHART = {
+  grid: "#ece5d8", axis: "#a1968a", baseline: "#d9cfbf", ink: "#57534e", cursor: "#f4eee4", border: "#ece5d8",
+} as const;
 export const GROUP_CHIP = {
-  positive: "bg-blue-50 text-blue-800 ring-1 ring-blue-200",
-  negative: "bg-orange-50 text-orange-800 ring-1 ring-orange-200",
-  ambiguous: "bg-emerald-50 text-emerald-800 ring-1 ring-emerald-200",
-  neutral: "bg-slate-100 text-slate-600 ring-1 ring-slate-200",
+  positive: "bg-[#e3f1ec] text-[#1b6b53]",
+  negative: "bg-clay-50 text-clay-700",
+  ambiguous: "bg-dusk-50 text-dusk-700",
+  neutral: "bg-stone-100 text-stone-600",
 } as const;
 
 export const groupOf = (label: string) => EMOTION_GROUP[label] ?? "ambiguous";

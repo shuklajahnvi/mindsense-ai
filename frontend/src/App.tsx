@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
-import { BarChart3, BookOpen, Brain, FlaskConical, History, Info, LifeBuoy, MessageCircleHeart, ShieldCheck } from "lucide-react";
+import { BookOpen, FlaskConical, History, Info, LifeBuoy, Phone, Sparkles, Sprout, TrendingUp, X } from "lucide-react";
 import { api, type Resource, type Status } from "./api";
 import JournalPage from "./pages/Journal";
 import HistoryPage from "./pages/History";
@@ -13,16 +13,27 @@ import AboutPage from "./pages/About";
 const NAV = [
   { to: "/", label: "Journal", icon: BookOpen },
   { to: "/history", label: "History", icon: History },
-  { to: "/insights", label: "Insights", icon: BarChart3 },
-  { to: "/assistant", label: "Reflect (RAG)", icon: MessageCircleHeart },
-  { to: "/models", label: "Models & evaluation", icon: FlaskConical },
+  { to: "/insights", label: "Insights", icon: TrendingUp },
+  { to: "/assistant", label: "Reflect", icon: Sparkles },
+  { to: "/models", label: "Models", icon: FlaskConical },
   { to: "/about", label: "About & safety", icon: Info },
 ];
 
 function StatusDot({ ok, label }: { ok: boolean; label: string }) {
   return (
-    <div className="flex items-center gap-2 text-xs text-slate-500">
-      <span className={`h-2 w-2 rounded-full ${ok ? "bg-emerald-500" : "bg-amber-400"}`} /> {label}
+    <div className="flex items-center gap-2 text-xs text-stone-400">
+      <span className={`h-1.5 w-1.5 rounded-full ${ok ? "bg-sage-400" : "bg-ochre-300"}`} /> {label}
+    </div>
+  );
+}
+
+/** Soft, blurred organic shapes behind the content. Purely decorative. */
+function Backdrop() {
+  return (
+    <div aria-hidden className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+      <div className="absolute -left-32 -top-32 h-[28rem] w-[28rem] rounded-full bg-sage-200/50 blur-3xl" />
+      <div className="absolute -right-24 top-1/3 h-[24rem] w-[24rem] rounded-full bg-clay-100/70 blur-3xl" />
+      <div className="absolute -bottom-40 left-1/3 h-[26rem] w-[26rem] rounded-full bg-ochre-100/70 blur-3xl" />
     </div>
   );
 }
@@ -32,20 +43,23 @@ function SupportDrawer({ open, onClose }: { open: boolean; onClose: () => void }
   useEffect(() => { if (open && !res.length) api.resources().then((r) => setRes(r.resources)).catch(() => {}); }, [open, res.length]);
   if (!open) return null;
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/30" onClick={onClose}>
-      <div className="h-full w-full max-w-md overflow-y-auto bg-white p-6 shadow-xl" onClick={(e) => e.stopPropagation()}>
-        <h2 className="h2 flex items-center gap-2"><LifeBuoy className="h-5 w-5 text-rose-500" /> Need support now?</h2>
-        <p className="mt-2 text-sm text-slate-600">If you are in immediate danger, contact your local emergency number. These services offer free, confidential support:</p>
-        <ul className="mt-4 space-y-3">
+    <div className="fixed inset-0 z-50 flex justify-end bg-stone-900/20 backdrop-blur-[2px]" onClick={onClose}>
+      <div className="m-3 h-[calc(100%-1.5rem)] w-full max-w-md overflow-y-auto rounded-4xl bg-sand-50 p-7 shadow-lift" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-start justify-between">
+          <h2 className="h2 flex items-center gap-2"><LifeBuoy className="h-5 w-5 text-clay-500" /> You're not alone</h2>
+          <button onClick={onClose} className="rounded-full p-1.5 text-stone-400 hover:bg-stone-100 hover:text-stone-600" aria-label="Close"><X className="h-5 w-5" /></button>
+        </div>
+        <p className="mt-3 text-sm leading-relaxed text-stone-600">If you are in immediate danger, please contact your local emergency number. These services offer free, confidential support, often 24/7:</p>
+        <ul className="mt-5 space-y-2.5">
           {res.map((r) => (
-            <li key={r.name} className="rounded-xl border border-slate-200 p-3 text-sm">
-              <div className="font-semibold">{r.region}: {r.name}</div>
-              <div className="text-slate-600">{r.contact}</div>
-              {r.url && <a className="text-indigo-600 hover:underline" href={r.url} target="_blank" rel="noreferrer">{r.url}</a>}
+            <li key={r.name} className="rounded-3xl bg-white/80 p-4 text-sm">
+              <div className="text-xs font-semibold uppercase tracking-wide text-stone-400">{r.region}</div>
+              <div className="font-semibold text-stone-800">{r.name}</div>
+              <div className="mt-0.5 flex items-center gap-1.5 text-stone-600"><Phone className="h-3.5 w-3.5 text-sage-500" /> {r.contact}</div>
+              {r.url && <a className="text-sm text-sage-700 underline decoration-sage-200 underline-offset-2 hover:decoration-sage-500" href={r.url} target="_blank" rel="noreferrer">{r.url.replace(/^https?:\/\//, "")}</a>}
             </li>
           ))}
         </ul>
-        <button className="btn-ghost mt-6 w-full" onClick={onClose}>Close</button>
       </div>
     </div>
   );
@@ -62,45 +76,48 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen lg:flex">
-      <aside className="border-b border-slate-200 bg-white lg:sticky lg:top-0 lg:h-screen lg:w-64 lg:shrink-0 lg:border-b-0 lg:border-r">
-        <div className="flex items-center gap-2 px-5 py-5">
-          <div className="rounded-xl bg-indigo-600 p-2 text-white"><Brain className="h-5 w-5" /></div>
+    <div className="relative min-h-screen lg:flex">
+      <Backdrop />
+      <aside className="lg:sticky lg:top-0 lg:flex lg:h-screen lg:w-64 lg:shrink-0 lg:flex-col">
+        <div className="flex items-center gap-3 px-6 pb-4 pt-7">
+          <div className="grid h-10 w-10 place-items-center rounded-full bg-gradient-to-br from-sage-400 to-sage-600 text-white shadow-soft">
+            <Sprout className="h-5 w-5" />
+          </div>
           <div>
-            <div className="font-semibold text-slate-900">MindSense AI</div>
-            <div className="text-[11px] text-slate-500">Explainable wellbeing journaling</div>
+            <div className="font-display text-lg font-medium leading-tight text-stone-800">MindSense</div>
+            <div className="text-xs text-stone-400">a gentle space to reflect</div>
           </div>
         </div>
-        <nav className="flex gap-1 overflow-x-auto px-3 pb-3 lg:flex-col lg:overflow-visible">
+        <nav className="flex gap-1 overflow-x-auto px-4 pb-3 lg:flex-col lg:overflow-visible">
           {NAV.map(({ to, label, icon: Icon }) => (
             <NavLink key={to} to={to} end={to === "/"}
-              className={({ isActive }) => `flex shrink-0 items-center gap-2.5 rounded-xl px-3 py-2 text-sm font-medium ${isActive ? "bg-indigo-50 text-indigo-700" : "text-slate-600 hover:bg-slate-50"}`}>
+              className={({ isActive }) => `flex shrink-0 items-center gap-3 rounded-full px-4 py-2.5 text-sm font-semibold transition ${isActive ? "bg-white text-sage-800 shadow-soft" : "text-stone-500 hover:bg-white/60 hover:text-stone-700"}`}>
               <Icon className="h-4 w-4" /> {label}
             </NavLink>
           ))}
         </nav>
-        <div className="hidden space-y-1.5 border-t border-slate-100 px-5 py-4 lg:block">
-          {status ? (
-            <>
-              <StatusDot ok={!!status.models.emotion.active_variant} label={`Emotion: ${status.models.emotion.active_variant ?? "not trained"}`} />
-              <StatusDot ok={!!status.models.stress.active_variant} label={`Stress: ${status.models.stress.active_variant ?? "not trained"}`} />
-              <StatusDot ok={status.rag.ready} label={`RAG: ${status.rag.ready ? `${status.rag.chunks} chunks` : "building..."}`} />
-              <StatusDot ok={status.llm.configured} label={`LLM: ${status.llm.configured ? `${status.llm.provider} (${status.llm.model})` : "not configured"}`} />
-            </>
-          ) : <StatusDot ok={false} label="Backend offline" />}
-        </div>
-        <div className="hidden px-3 lg:block">
-          <button onClick={() => setSupport(true)} className="btn w-full bg-rose-50 text-rose-700 hover:bg-rose-100"><LifeBuoy className="h-4 w-4" /> Get support</button>
+        <div className="mt-auto hidden px-4 pb-6 lg:block">
+          <button onClick={() => setSupport(true)} className="btn w-full bg-clay-50 text-clay-700 hover:bg-clay-100"><LifeBuoy className="h-4 w-4" /> Need support?</button>
+          <div className="mt-5 space-y-1.5 px-2">
+            {status ? (
+              <>
+                <StatusDot ok={!!status.models.emotion.active_variant} label={`Emotion model: ${status.models.emotion.active_variant ?? "not trained"}`} />
+                <StatusDot ok={!!status.models.stress.active_variant} label={`Stress model: ${status.models.stress.active_variant ?? "not trained"}`} />
+                <StatusDot ok={status.rag.ready} label={`Knowledge base: ${status.rag.ready ? "ready" : "building..."}`} />
+                <StatusDot ok={status.llm.configured} label={`LLM: ${status.llm.configured ? status.llm.provider : "not configured"}`} />
+              </>
+            ) : <StatusDot ok={false} label="Backend offline" />}
+          </div>
         </div>
       </aside>
 
-      <main className="flex-1">
-        <div className="flex items-center gap-2 border-b border-amber-200 bg-amber-50 px-6 py-2 text-xs text-amber-800">
-          <ShieldCheck className="h-4 w-4 shrink-0" />
-          <span>MindSense AI is a non-clinical self-reflection tool. It does not diagnose any condition and cannot respond to emergencies.</span>
-          <button onClick={() => setSupport(true)} className="ml-auto shrink-0 font-semibold underline lg:hidden">Get support</button>
-        </div>
-        <div className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
+      <main className="min-w-0 flex-1">
+        <div className="mx-auto max-w-5xl px-4 pb-16 pt-6 sm:px-8">
+          <div className="mb-8 flex items-center gap-2 rounded-full bg-white/60 px-4 py-2 text-xs text-stone-500 shadow-sm backdrop-blur-sm">
+            <Sprout className="h-3.5 w-3.5 shrink-0 text-sage-500" />
+            <span>A non-clinical reflection tool. It doesn't diagnose any condition and can't respond to emergencies.</span>
+            <button onClick={() => setSupport(true)} className="ml-auto shrink-0 font-semibold text-clay-600 hover:text-clay-700 lg:hidden">Get support</button>
+          </div>
           <Routes>
             <Route path="/" element={<JournalPage status={status} />} />
             <Route path="/history" element={<HistoryPage />} />

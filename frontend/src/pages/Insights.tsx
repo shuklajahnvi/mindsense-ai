@@ -9,27 +9,27 @@ import { EmotionChip, ErrorBox, Note, Spinner, StatCard } from "../components";
 import { CHART, GROUP_COLOR, SERIES, cap, num, pct } from "../lib";
 
 const RANGES = [{ v: 30, l: "30 days" }, { v: 90, l: "90 days" }, { v: 365, l: "1 year" }, { v: 0, l: "All" }];
-const axis = { stroke: CHART.axis, fontSize: 11, tickLine: false, axisLine: { stroke: "#c3c2b7" } };
-const tooltipStyle = { contentStyle: { borderRadius: 12, border: "1px solid #e2e8f0", fontSize: 12 } };
+const axis = { stroke: CHART.axis, fontSize: 11, tickLine: false, axisLine: { stroke: CHART.baseline } };
+const tooltipStyle = { contentStyle: { borderRadius: 16, border: `1px solid ${CHART.border}`, fontSize: 12, boxShadow: "0 10px 30px -12px rgba(84,70,52,0.2)" } };
 
 function PeriodTable({ rows }: { rows: Period[] }) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-left text-sm">
-        <thead className="text-xs uppercase tracking-wide text-slate-500">
+        <thead className="text-xs uppercase tracking-wide text-stone-500">
           <tr><th className="py-2 pr-3">Period</th><th className="pr-3">Entries</th><th className="pr-3">Avg stress score</th><th className="pr-3">Stress-language share</th><th className="pr-3">Avg mood</th><th className="pr-3">Avg sleep</th><th className="pr-3">Frequent emotions</th><th>Observations</th></tr>
         </thead>
-        <tbody className="divide-y divide-slate-100 tabular-nums">
+        <tbody className="divide-y divide-stone-100 tabular-nums">
           {[...rows].reverse().map((r) => (
             <tr key={r.period} className="align-top">
-              <td className="py-2 pr-3 font-medium text-slate-800">{r.label}</td>
+              <td className="py-2 pr-3 font-medium text-stone-800">{r.label}</td>
               <td className="pr-3">{r.entries}</td>
               <td className="pr-3">{num(r.avg_stress_score)}</td>
               <td className="pr-3">{pct(r.stress_language_share)}</td>
               <td className="pr-3">{num(r.avg_mood, 1)}</td>
               <td className="pr-3">{r.avg_sleep_hours == null ? "-" : `${num(r.avg_sleep_hours, 1)} h`}</td>
               <td className="pr-3"><div className="flex flex-wrap gap-1">{r.top_emotions.map((t) => <EmotionChip key={t.label} label={t.label} />)}</div></td>
-              <td className="text-xs text-slate-600">{r.observations.join(" ")}</td>
+              <td className="text-xs text-stone-600">{r.observations.join(" ")}</td>
             </tr>
           ))}
         </tbody>
@@ -44,26 +44,26 @@ function TopicsCard() {
   useEffect(() => { api.topics().then(setT).catch(setErr); }, []);
   return (
     <section className="card space-y-3">
-      <h2 className="h2 flex items-center gap-2"><Layers className="h-5 w-5 text-indigo-500" /> Recurring themes</h2>
+      <h2 className="h2 flex items-center gap-2"><Layers className="h-5 w-5 text-sage-500" /> Recurring themes</h2>
       <ErrorBox error={err} />
       {!t && !err ? <Spinner label="Embedding and clustering entries..." /> : t?.status === "insufficient_data" ? (
         <p className="muted">At least {t.min_entries} entries are needed to identify recurring themes ({t.n_entries} so far).</p>
       ) : t && (
         <>
-          <p className="text-xs text-slate-500">{t.method}. k = {t.k} chosen by silhouette score ({t.silhouette_cosine}). Theme names are the top keywords, not interpretations.</p>
+          <p className="text-xs text-stone-500">{t.method}. k = {t.k} chosen by silhouette score ({t.silhouette_cosine}). Theme names are the top keywords, not interpretations.</p>
           <div className="grid gap-3 md:grid-cols-2">
             {t.topics.map((tp) => (
-              <div key={tp.topic_id} className="rounded-xl border border-slate-200 p-3">
+              <div key={tp.topic_id} className="rounded-3xl bg-sand-50 p-4">
                 <div className="flex items-baseline justify-between gap-2">
-                  <div className="font-semibold text-slate-800">{tp.name}</div>
-                  <div className="text-xs text-slate-500">{tp.n_entries} entries · {pct(tp.share)}</div>
+                  <div className="font-semibold text-stone-800">{tp.name}</div>
+                  <div className="text-xs text-stone-500">{tp.n_entries} entries · {pct(tp.share)}</div>
                 </div>
-                <div className="mt-1 flex flex-wrap gap-1">{tp.keywords.map((k) => <span key={k} className="chip bg-slate-100 text-slate-600">{k}</span>)}</div>
-                <div className="mt-2 text-xs text-slate-500">
+                <div className="mt-1 flex flex-wrap gap-1">{tp.keywords.map((k) => <span key={k} className="chip bg-stone-100 text-stone-600">{k}</span>)}</div>
+                <div className="mt-2 text-xs text-stone-500">
                   {tp.first_seen} → {tp.last_seen} · avg stress score {num(tp.avg_stress_score)}
                 </div>
                 <div className="mt-1 flex flex-wrap gap-2 text-xs">
-                  {tp.representative_entry_ids.map((id) => <Link key={id} to={`/entries/${id}`} className="text-indigo-600 hover:underline">entry #{id}</Link>)}
+                  {tp.representative_entry_ids.map((id) => <Link key={id} to={`/entries/${id}`} className="text-sage-600 hover:underline">entry #{id}</Link>)}
                 </div>
               </div>
             ))}
@@ -96,18 +96,18 @@ export default function InsightsPage() {
     <div className="space-y-6">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">Insights</h1>
+          <h1 className="h1">Insights</h1>
           <p className="muted">Patterns in the language of your entries over time.</p>
         </div>
-        <div className="flex gap-1 rounded-xl bg-white p-1 ring-1 ring-slate-200">
+        <div className="flex gap-1 rounded-full bg-white/70 p-1 shadow-soft">
           {RANGES.map((r) => (
-            <button key={r.v} onClick={() => setDays(r.v)} className={`rounded-lg px-3 py-1.5 text-xs font-medium ${days === r.v ? "bg-indigo-600 text-white" : "text-slate-600 hover:bg-slate-50"}`}>{r.l}</button>
+            <button key={r.v} onClick={() => setDays(r.v)} className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition ${days === r.v ? "bg-sage-600 text-white" : "text-stone-500 hover:bg-sand-100"}`}>{r.l}</button>
           ))}
         </div>
       </header>
       <ErrorBox error={err} />
       {!data ? <Spinner /> : data.n_entries === 0 ? (
-        <div className="card text-center text-sm text-slate-500">No entries in this range. Write entries or load demo entries from <Link to="/history" className="text-indigo-600 hover:underline">History</Link>.</div>
+        <div className="card text-center text-sm text-stone-500">No entries in this range. Write entries or load demo entries from <Link to="/history" className="text-sage-600 hover:underline">History</Link>.</div>
       ) : (
         <>
           <Note>{data.caveat}</Note>
@@ -121,27 +121,27 @@ export default function InsightsPage() {
           {data.observations.statements.length > 0 && (
             <section className="card">
               <h2 className="h2 mb-2">Recent observations</h2>
-              <ul className="list-disc space-y-1 pl-5 text-sm text-slate-700">{data.observations.statements.map((s) => <li key={s}>{s}</li>)}</ul>
+              <ul className="list-disc space-y-1 pl-5 text-sm text-stone-700">{data.observations.statements.map((s) => <li key={s}>{s}</li>)}</ul>
             </section>
           )}
 
           <div className="grid gap-4 lg:grid-cols-2">
             <section className="card">
               <h2 className="h2">Stress-related language (daily mean score)</h2>
-              <p className="mb-3 text-xs text-slate-500">Mean stress-classifier probability per day, 0-1.</p>
+              <p className="mb-3 text-xs text-stone-500">Mean stress-classifier probability per day, 0-1.</p>
               <ResponsiveContainer width="100%" height={240}>
                 <LineChart data={daily} margin={{ left: -20, right: 8, top: 8 }}>
                   <CartesianGrid stroke={CHART.grid} vertical={false} />
                   <XAxis dataKey="date" {...axis} minTickGap={20} />
                   <YAxis domain={[0, 1]} {...axis} />
                   <Tooltip {...tooltipStyle} formatter={(v: number) => v?.toFixed(2)} />
-                  <Line type="monotone" dataKey="stress" name="Stress score" stroke={SERIES[0]} strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} connectNulls />
+                  <Line type="monotone" dataKey="stress" name="Stress score" stroke={SERIES[1]} strokeWidth={2} dot={{ r: 3 }} activeDot={{ r: 5 }} connectNulls />
                 </LineChart>
               </ResponsiveContainer>
             </section>
             <section className="card">
               <h2 className="h2">Self-reported check-ins</h2>
-              <p className="mb-3 text-xs text-slate-500">Optional mood and energy ratings, 1-5 (daily mean).</p>
+              <p className="mb-3 text-xs text-stone-500">Optional mood and energy ratings, 1-5 (daily mean).</p>
               <ResponsiveContainer width="100%" height={240}>
                 <LineChart data={daily} margin={{ left: -20, right: 8, top: 8 }}>
                   <CartesianGrid stroke={CHART.grid} vertical={false} />
@@ -161,13 +161,13 @@ export default function InsightsPage() {
                   <option value="weekly">Weekly</option><option value="monthly">Monthly</option>
                 </select>
               </div>
-              <p className="mb-3 text-xs text-slate-500">Share of detected emotion labels in each GoEmotions sentiment group.</p>
+              <p className="mb-3 text-xs text-stone-500">Share of detected emotion labels in each GoEmotions sentiment group.</p>
               <ResponsiveContainer width="100%" height={240}>
                 <BarChart data={groups} margin={{ left: -20, right: 8, top: 8 }}>
                   <CartesianGrid stroke={CHART.grid} vertical={false} />
                   <XAxis dataKey="label" {...axis} interval={0} />
                   <YAxis domain={[0, 1]} ticks={[0, 0.25, 0.5, 0.75, 1]} tickFormatter={(v) => `${Math.round(v * 100)}%`} {...axis} />
-                  <Tooltip {...tooltipStyle} formatter={(v: number) => pct(v)} cursor={{ fill: "#f1f5f9" }} />
+                  <Tooltip {...tooltipStyle} formatter={(v: number) => pct(v)} cursor={{ fill: CHART.cursor }} />
                   <Legend wrapperStyle={{ fontSize: 12 }} />
                   {(["positive", "negative", "ambiguous", "neutral"] as const).map((g, i, arr) => (
                     <Bar key={g} dataKey={g} name={cap(g)} stackId="g" fill={GROUP_COLOR[g]} stroke="#fff" strokeWidth={2} maxBarSize={44}
@@ -178,19 +178,19 @@ export default function InsightsPage() {
             </section>
             <section className="card">
               <h2 className="h2">Most frequent emotion labels</h2>
-              <p className="mb-3 text-xs text-slate-500">Number of entries where each label crossed its decision threshold.</p>
+              <p className="mb-3 text-xs text-stone-500">Number of entries where each label crossed its decision threshold.</p>
               <ResponsiveContainer width="100%" height={Math.max(240, dist.length * 24 + 40)}>
                 <BarChart data={dist} layout="vertical" margin={{ left: 10, right: 16 }}>
                   <CartesianGrid stroke={CHART.grid} horizontal={false} />
                   <XAxis type="number" allowDecimals={false} {...axis} />
                   <YAxis type="category" dataKey="label" width={95} {...axis} interval={0} />
-                  <Tooltip {...tooltipStyle} cursor={{ fill: "#f1f5f9" }} />
+                  <Tooltip {...tooltipStyle} cursor={{ fill: CHART.cursor }} />
                   <Bar dataKey="entries" name="Entries" radius={[0, 4, 4, 0]} maxBarSize={14}>
                     {dist.map((d) => <Cell key={d.label} fill={GROUP_COLOR[d.group as keyof typeof GROUP_COLOR]} />)}
                   </Bar>
                 </BarChart>
               </ResponsiveContainer>
-              <div className="mt-2 flex flex-wrap gap-3 text-[11px] text-slate-500">
+              <div className="mt-2 flex flex-wrap gap-3 text-[11px] text-stone-500">
                 {Object.entries(GROUP_COLOR).map(([g, c]) => <span key={g} className="flex items-center gap-1"><span className="h-2.5 w-2.5 rounded-sm" style={{ background: c }} />{cap(g)}</span>)}
               </div>
             </section>

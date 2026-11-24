@@ -23,7 +23,7 @@ export default function HistoryPage() {
     <div className="space-y-5">
       <header className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900">History</h1>
+          <h1 className="h1">History</h1>
           <p className="muted">All stored entries with their model outputs.</p>
         </div>
         <div className="flex gap-2">
@@ -37,27 +37,27 @@ export default function HistoryPage() {
       </header>
       <Note>Demo entries are hand-written synthetic journal texts (a fictional student over six weeks) so you can explore the trends and topic views. Their predictions are real outputs of the trained models.</Note>
       {busy && <Spinner label="Working (analysing entries with the models)..." />}
-      {msg && <div className="text-sm text-emerald-700">{msg}</div>}
+      {msg && <div className="text-sm text-sage-700">{msg}</div>}
       <ErrorBox error={err} />
       {!items ? <Spinner /> : items.length === 0 ? (
-        <div className="card text-center text-sm text-slate-500">No entries yet. <Link to="/" className="text-indigo-600 hover:underline">Write your first entry</Link> or load the demo entries.</div>
+        <div className="card text-center text-sm text-stone-500">No entries yet. <Link to="/" className="text-sage-600 hover:underline">Write your first entry</Link> or load the demo entries.</div>
       ) : (
         <ul className="space-y-3">
           {items.map((e) => (
             <li key={e.id}>
-              <Link to={`/entries/${e.id}`} className="card block transition hover:border-indigo-300 hover:shadow">
-                <div className="mb-1 flex flex-wrap items-center gap-2 text-xs text-slate-500">
+              <Link to={`/entries/${e.id}`} className="card block transition duration-200 hover:-translate-y-0.5 hover:shadow-lift">
+                <div className="mb-1 flex flex-wrap items-center gap-2 text-xs text-stone-500">
                   <span>{fmtDate(e.created_at)}</span>
-                  {e.is_demo && <span className="chip bg-violet-50 text-violet-700">demo</span>}
+                  {e.is_demo && <span className="chip bg-sand-50 text-sand-700">demo</span>}
                   {e.stress_label && (
-                    <span className={`chip ${e.stress_label === "stress" ? "bg-rose-50 text-rose-700" : "bg-emerald-50 text-emerald-700"}`}>
+                    <span className={`chip ${e.stress_label === "stress" ? "bg-clay-50 text-clay-700" : "bg-sage-50 text-sage-700"}`}>
                       {e.stress_label === "stress" ? "stress-related language" : "no stress language"} · {pct(e.stress_score)}
                     </span>
                   )}
                   {e.mood && <span>mood {e.mood}/5</span>}
                   {e.sleep_hours != null && <span>sleep {e.sleep_hours}h</span>}
                 </div>
-                <p className="line-clamp-2 text-sm text-slate-700">{e.text}</p>
+                <p className="line-clamp-2 text-sm text-stone-700">{e.text}</p>
                 <div className="mt-2 flex flex-wrap gap-1">{(e.predicted_emotions ?? []).map((l) => <EmotionChip key={l} label={l} />)}</div>
               </Link>
             </li>

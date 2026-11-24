@@ -19,21 +19,21 @@ export default function AboutPage() {
   return (
     <div className="space-y-6">
       <header>
-        <h1 className="text-2xl font-semibold text-slate-900">About & safety</h1>
+        <h1 className="h1">About & safety</h1>
         <p className="muted">MindSense AI: An Explainable AI and Generative AI Framework for Mental Well-being Analysis.</p>
       </header>
       <div className="grid gap-4 md:grid-cols-2">
         {ITEMS.map((i) => (
           <section key={i.title} className="card">
-            <h2 className="mb-1 font-semibold text-slate-900">{i.title}</h2>
-            <p className="text-sm leading-relaxed text-slate-600">{i.body}</p>
+            <h2 className="mb-1 font-semibold text-stone-900">{i.title}</h2>
+            <p className="text-sm leading-relaxed text-stone-600">{i.body}</p>
           </section>
         ))}
       </div>
       {s && (
         <section className="card">
-          <h2 className="mb-2 font-semibold text-slate-900">Live system status</h2>
-          <pre className="overflow-x-auto rounded-xl bg-slate-50 p-3 text-xs text-slate-600">{JSON.stringify(s, null, 2)}</pre>
+          <h2 className="mb-2 font-semibold text-stone-900">Live system status</h2>
+          <pre className="overflow-x-auto rounded-3xl bg-sand-50 px-4 py-3 text-xs text-stone-600">{JSON.stringify(s, null, 2)}</pre>
         </section>
       )}
     </div>

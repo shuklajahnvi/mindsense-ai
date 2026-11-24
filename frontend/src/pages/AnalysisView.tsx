@@ -30,8 +30,8 @@ export default function AnalysisView({ entry, onUpdate, autoExplain = false }: {
       <ErrorBox error={err} />
       <div className="grid gap-4 md:grid-cols-2">
         <section className="card space-y-3">
-          <div className="flex items-center justify-between gap-2">
-            <h3 className="h2">Emotion-related language</h3>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h3 className="h2">Emotions in your words</h3>
             <ModelBadge info={entry.model_info?.emotion} />
           </div>
           {entry.emotions ? (
@@ -41,22 +41,22 @@ export default function AnalysisView({ entry, onUpdate, autoExplain = false }: {
                   : <span className="muted">No label crossed its decision threshold.</span>}
               </div>
               <EmotionBars rows={entry.emotions} />
-              <p className="text-[11px] text-slate-400">Multi-label: each of the 28 GoEmotions labels has its own sigmoid score and tuned threshold (black tick).</p>
+              <p className="text-[11px] text-stone-400">Multi-label: each of the 28 GoEmotions labels has its own sigmoid score and tuned threshold (black tick).</p>
             </>
           ) : <p className="muted">Emotion model not available.</p>}
         </section>
         <section className="card space-y-4">
-          <div className="flex items-center justify-between gap-2">
-            <h3 className="h2">Stress-related language</h3>
+          <div className="flex flex-wrap items-center justify-between gap-2">
+            <h3 className="h2">Stress in your words</h3>
             <ModelBadge info={entry.model_info?.stress} />
           </div>
           {entry.stress_score != null ? <StressMeter score={entry.stress_score} label={entry.stress_label!} /> : <p className="muted">Stress model not available.</p>}
-          <p className="pt-3 text-[11px] text-slate-400">Binary classifier trained on Dreaddit (Reddit posts labelled for stress by annotators). Describes the wording, not your stress level.</p>
+          <p className="pt-3 text-[11px] text-stone-400">Binary classifier trained on Dreaddit (Reddit posts labelled for stress by annotators). Describes the wording, not your stress level.</p>
           {(entry.mood || entry.energy || entry.sleep_hours != null) && (
-            <div className="grid grid-cols-3 gap-2 border-t border-slate-100 pt-3 text-center text-xs">
-              <div><div className="text-slate-400">Mood</div><div className="font-semibold">{entry.mood ?? "-"}/5</div></div>
-              <div><div className="text-slate-400">Energy</div><div className="font-semibold">{entry.energy ?? "-"}/5</div></div>
-              <div><div className="text-slate-400">Sleep</div><div className="font-semibold">{entry.sleep_hours ?? "-"} h</div></div>
+            <div className="grid grid-cols-3 gap-2 border-t border-stone-100 pt-3 text-center text-xs">
+              <div><div className="text-stone-400">Mood</div><div className="font-semibold">{entry.mood ?? "-"}/5</div></div>
+              <div><div className="text-stone-400">Energy</div><div className="font-semibold">{entry.energy ?? "-"}/5</div></div>
+              <div><div className="text-stone-400">Sleep</div><div className="font-semibold">{entry.sleep_hours ?? "-"} h</div></div>
             </div>
           )}
         </section>
@@ -64,7 +64,7 @@ export default function AnalysisView({ entry, onUpdate, autoExplain = false }: {
 
       <section className="card space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 className="h2 flex items-center gap-2"><Lightbulb className="h-5 w-5 text-amber-500" /> Why did the model say this? (LIME)</h3>
+          <h3 className="h2 flex items-center gap-2"><Lightbulb className="h-5 w-5 text-ochre-500" /> Why did the model say this? (LIME)</h3>
           <div className="flex items-center gap-2">
             <select className="input !w-auto !py-1.5" value={variant} onChange={(e) => setVariant(e.target.value as Variant)}>
               <option value="auto">Active models</option>
@@ -83,7 +83,7 @@ export default function AnalysisView({ entry, onUpdate, autoExplain = false }: {
 
       <section className="card space-y-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h3 className="h2 flex items-center gap-2"><Sparkles className="h-5 w-5 text-indigo-500" /> Personalised reflection</h3>
+          <h3 className="h2 flex items-center gap-2"><Sparkles className="h-5 w-5 text-sage-500" /> Personalised reflection</h3>
           <button className="btn-primary !py-1.5" disabled={!!busy} onClick={() => run("reflect", () => api.reflection(entry.id))}>
             {entry.reflection ? "Regenerate" : "Generate reflection"}
           </button>
@@ -94,7 +94,7 @@ export default function AnalysisView({ entry, onUpdate, autoExplain = false }: {
               <Note tone="warn">Retrieval-only mode: no LLM is configured{entry.reflection.error ? ` (error: ${entry.reflection.error})` : ""}. Add an API key in backend/.env to enable generation.</Note>
             )}
             {entry.reflection.mode === "llm" && entry.reflection.provider && (
-              <div className="text-[11px] text-slate-400">Generated by {entry.reflection.provider.provider} · {entry.reflection.provider.model}, grounded in retrieved passages</div>
+              <div className="text-[11px] text-stone-400">Generated by {entry.reflection.provider.provider} · {entry.reflection.provider.model}, grounded in retrieved passages</div>
             )}
             <Markdown text={entry.reflection.answer} />
             {entry.reflection.sources.length > 0 && <SourceList sources={entry.reflection.sources} />}
@@ -107,15 +107,15 @@ export default function AnalysisView({ entry, onUpdate, autoExplain = false }: {
 
 export function SourceList({ sources }: { sources: Source[] }) {
   return (
-    <details className="rounded-xl bg-slate-50 p-3 text-xs text-slate-600">
-      <summary className="cursor-pointer font-medium text-slate-700">Retrieved sources ({sources.length})</summary>
+    <details className="rounded-3xl bg-sand-50 px-4 py-3 text-xs text-stone-600">
+      <summary className="cursor-pointer font-medium text-stone-700">Retrieved sources ({sources.length})</summary>
       <ol className="mt-2 space-y-2">
         {sources.map((s) => (
           <li key={s.ref}>
-            <div className="font-semibold">[{s.ref}] {s.title} - {s.section} <span className="font-normal text-slate-400">(similarity {s.similarity.toFixed(2)})</span></div>
-            <div className="text-slate-500">{s.excerpt}</div>
+            <div className="font-semibold">[{s.ref}] {s.title} - {s.section} <span className="font-normal text-stone-400">(similarity {s.similarity.toFixed(2)})</span></div>
+            <div className="text-stone-500">{s.excerpt}</div>
             <div className="mt-0.5 flex flex-wrap gap-x-3">
-              {s.sources.map((src) => <a key={src.url} href={src.url} target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline">{src.name}</a>)}
+              {s.sources.map((src) => <a key={src.url} href={src.url} target="_blank" rel="noreferrer" className="text-sage-600 hover:underline">{src.name}</a>)}
             </div>
           </li>
         ))}
